@@ -218,7 +218,7 @@ const LoginSignUp = () => {
                     <img
                       src={avatarPreview}
                       className={`w-10 h-10 rounded-full ${
-                        avatarPreview == "/profile.png"
+                        avatarPreview === "/profile.png"
                           ? "opacity-50"
                           : "opcaity-100"
                       } `}

@@ -12,6 +12,7 @@ import MetaData from "../../components/layout/MetaData";
 import { Edit, Delete } from "@material-ui/icons";
 import SideBar from "../../components/admin/Sidebar";
 import { DELETE_PRODUCT_RESET } from "../../constants/productConstants";
+import Heading from "./_components/Heading";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -127,9 +128,10 @@ const ProductList = () => {
 
         <div className="dashboardRightBoxStyle">
           <div className="mb-5">
-            <p className="upper text-center text-2xl font-bold text-gray-400">
-              ALL PRODUCTS
-            </p>
+            <Heading
+              title={`Products (${products && products.length})`}
+              description={"Manage products for your store"}
+            />
           </div>
 
           <DataGrid

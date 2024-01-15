@@ -12,6 +12,7 @@ import MetaData from "../../components/layout/MetaData";
 import { Edit, Delete } from "@material-ui/icons";
 import SideBar from "../../components/admin/Sidebar";
 import { DELETE_ORDER_RESET } from "../../constants/orderConstants";
+import Heading from "./_components/Heading";
 
 const OrdersList = () => {
   const dispatch = useDispatch();
@@ -130,9 +131,10 @@ const OrdersList = () => {
 
         <div className="dashboardRightBoxStyle">
           <div className="mb-5">
-            <p className="upper text-center text-2xl font-bold text-gray-400">
-              ALL ORDERS
-            </p>
+            <Heading
+              title={`Orders (${orders && orders.length})`}
+              description={"Manage orders for your store"}
+            />
           </div>
 
           <DataGrid

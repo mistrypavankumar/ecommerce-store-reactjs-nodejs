@@ -13,15 +13,21 @@ const Slider = ({ menuOptions, setCloseToggle, closeToggle }) => {
 
   return (
     <>
+      {closeToggle ? (
+        <div
+          onClick={handleCloseToggle}
+          className="md:hidden absolute z-50 w-screen h-screen bg-black/50"
+        />
+      ) : null}
       <div
-        className={`md:hidden w-screen h-screen absolute top-0 left-0 z-50 transition-all duration-500 ${
+        className={`md:hidden w-[80%] md:w-1/2 h-screen absolute top-0 left-0 bottom-0 z-[999] transition-all duration-500 ${
           closeToggle
             ? "animate-slide-in block opacity-100"
             : "-left-[100%] -translate-x-96 opacity-0"
         }`}
       >
-        <div className="flex flex-col relative z-20 justify-center items-center bg-primaryGreen w-4/5 h-screen">
-          <div className="absolute top-3 right-3 text-primaryGreen">
+        <div className="flex flex-col relative z-20 justify-center items-center bg-white w-full h-screen">
+          <div className="absolute top-3 right-3 text-white">
             <CustomIcon
               Icon={AiOutlineClose}
               onClick={handleCloseToggle}

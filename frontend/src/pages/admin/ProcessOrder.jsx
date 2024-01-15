@@ -221,13 +221,7 @@ const ProcessOrder = () => {
                       <div className="w-fit mx-auto">
                         <Button
                           label="Process"
-                          disabled={
-                            loadingOrder
-                              ? true
-                              : false || status === ""
-                              ? true
-                              : false
-                          }
+                          disabled={loadingOrder ? true : false}
                         />{" "}
                       </div>
                     </form>

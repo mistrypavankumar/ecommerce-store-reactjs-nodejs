@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MetaData from "../../components/layout/MetaData";
 import { useSelector, useDispatch } from "react-redux";
 import { Doughnut, Line } from "react-chartjs-2";
@@ -10,6 +10,7 @@ import { getAdminProducts } from "../../actions/productAction";
 import { getAllOrders } from "../../actions/orderAction";
 import { getAllUsers } from "../../actions/userAction";
 import { rupeeSymbol } from "../../constants/constants";
+import Heading from "./_components/Heading";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -80,65 +81,48 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboardRightBoxStyle">
-        <div>
-          <p className="upper text-center text-2xl font-bold text-gray-400">
-            Dashboard
-          </p>
-        </div>
+        <Heading title={"Overview"} description={"Overview of your store"} />
 
         {/* dashboardSummary */}
-        <div className="pt-10">
-          <div className="text-center text-xl py-5 text-white font-medium bg-secondaryDark">
-            <p>
-              Total Amount <br /> {rupeeSymbol}
-              {totalAmount}
-            </p>
+        <div className="pt-10 px-5">
+          <div className="flex flex-wrap gap-5">
+            <OverViewCard
+              title={"Total Revenue"}
+              label={rupeeSymbol + " " + totalAmount}
+            />
+            <OverViewCard
+              title={"Total Products"}
+              label={products && products.length}
+            />
+            <OverViewCard
+              title={"Total Orders"}
+              label={orders && orders.length}
+            />
+            <OverViewCard title={"Total Users"} label={users && users.length} />
           </div>
 
-          {/* dashboardSummaryBox2 */}
-          <div className=" flex flex-row justify-center py-5 gap-7">
-            <Link
-              className="summryBoxStyle bg-primaryGreen"
-              to="/admin/products"
-            >
-              <p>Products</p>
-              <p>{products && products.length}</p>
-            </Link>
-            <Link
-              className="summryBoxStyle bg-secondaryDark "
-              to="/admin/orders"
-            >
-              <p>Orders</p>
-              <p>{orders && orders.length}</p>
-            </Link>
-            <Link className="summryBoxStyle bg-gray-800" to="/admin/users">
-              <p>Users</p>
-              <p>{users && users.length}</p>
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 pt-10">
+            {/* lineChart */}
+            <div className="w-full">
+              <Line
+                data={state}
+                options={{
+                  title: {
+                    display: true,
+                    text: "Average Rainfall per month",
+                    fontSize: 20,
+                  },
+                  legend: {
+                    display: true,
+                    position: "right",
+                  },
+                }}
+              />
+            </div>
+            <div className="w-[80%] md:w-[50%] mx-auto md:h-[50%]">
+              <Doughnut data={doughnutState} />
+            </div>{" "}
           </div>
-        </div>
-
-        {/* lineChart */}
-        <div className="w-[80%] mx-auto">
-          <Line
-            data={state}
-            options={{
-              title: {
-                display: true,
-                text: "Average Rainfall per month",
-                fontSize: 20,
-              },
-              legend: {
-                display: true,
-                position: "right",
-              },
-            }}
-          />
-        </div>
-
-        {/* doughnutChart */}
-        <div className="w-[50%] md:w-[40%] mx-auto">
-          <Doughnut data={doughnutState} />
         </div>
       </div>
     </div>
@@ -146,3 +130,12 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+const OverViewCard = ({ title, label }) => {
+  return (
+    <div className="flex-1 w-full border-2 rounded-lg p-5">
+      <h3 className="text-sm pb-2">{title}</h3>
+      <h2 className="text-2xl font-semibold">{label}</h2>
+    </div>
+  );
+};

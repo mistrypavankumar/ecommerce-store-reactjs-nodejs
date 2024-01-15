@@ -101,6 +101,7 @@ const Payment = () => {
           setLoading(false);
         } else {
           alert.error("There's some issue while processing payment");
+          setLoading(false);
         }
       }
     } catch (err) {
@@ -144,7 +145,7 @@ const Payment = () => {
             </div>
 
             <input
-              className="slideableBtnStyles cursor-pointer"
+              className="w-full bg-primaryGreen text-white py-2.5 rounded-lg cursor-pointer"
               ref={payBtn}
               type="submit"
               disabled={loading ? true : false}
