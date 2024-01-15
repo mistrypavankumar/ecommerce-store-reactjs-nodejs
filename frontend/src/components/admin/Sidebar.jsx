@@ -13,10 +13,6 @@ import RateReviewIcon from "@material-ui/icons/RateReview";
 const Sidebar = () => {
   return (
     <div className="w-full bg-white py-24 flex flex-col gap-10 h-full px-10 ">
-      {" "}
-      <Link className="sidebarLinkStyles border-b-2 pb-3" to="/">
-        <h1 className="text-xl font-bold ">ECommerce</h1>
-      </Link>
       <Link className="sidebarLinkStyles" to="/admin/dashboard">
         <p>
           <DashboardIcon /> Dashboard
@@ -39,21 +35,22 @@ const Sidebar = () => {
         </TreeView>
       </Link>
       <Link className="sidebarLinkStyles" to="/admin/orders">
-        <p>
+        <div className="flex items-center gap-2">
           <ListAltIcon />
-          Orders
-        </p>
+          <p>Orders</p>
+        </div>
       </Link>
       <Link className="sidebarLinkStyles" to="/admin/users">
-        <p>
-          <PeopleIcon /> Users
-        </p>
+        <div className="flex items-center gap-2">
+          <PeopleIcon />
+          <p>Users</p>
+        </div>
       </Link>
       <Link className="sidebarLinkStyles" to="/admin/reviews">
-        <p>
+        <div className="flex items-center gap-2">
           <RateReviewIcon />
-          Reviews
-        </p>
+          <p>Reviews</p>
+        </div>
       </Link>
     </div>
   );

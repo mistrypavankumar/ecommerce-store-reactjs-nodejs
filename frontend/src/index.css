@@ -92,7 +92,7 @@
   }
 
   .sidebarLinkStyles {
-    @apply text-slate-600 hover:text-secondaryDark hover:scale-105 transition-all duration-500;
+    @apply text-slate-600 hover:text-primaryGreen hover:scale-105 transition-all duration-500;
   }
 
   .summryBoxStyle {

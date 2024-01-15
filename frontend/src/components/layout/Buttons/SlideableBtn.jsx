@@ -8,7 +8,7 @@ const SlideableBtn = ({ onClick, label }) => {
                     z-10
 
                     before:content-['']
-                   before:bg-secondaryDark 
+                   before:bg-primaryDarkGreen 
                    before:w-1/2 
                    before:absolute
                     before:h-full 
@@ -27,7 +27,7 @@ const SlideableBtn = ({ onClick, label }) => {
                     hover:after:opacity-0
 
                     after:content-['']
-                   after:bg-secondaryDark
+                   after:bg-primaryDarkGreen
                    after:w-1/2 
                    after:absolute
                     after:h-full 
@@ -37,7 +37,7 @@ const SlideableBtn = ({ onClick, label }) => {
                     after:transition-all
                     after:duration-500
 
-                    py-2 px-3 text-white rounded-md hover:scale-105 transition-all duration-500 bg-secondaryColor"
+                    py-2 px-3 text-white rounded-md hover:scale-105 transition-all duration-500 bg-primaryGreen"
     >
       {label}
     </button>

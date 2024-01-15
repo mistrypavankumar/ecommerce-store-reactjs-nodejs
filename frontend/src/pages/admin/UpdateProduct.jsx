@@ -181,7 +181,7 @@ const UpdateProduct = () => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     cols="30"
-                    rows="1"
+                    rows="5"
                   ></textarea>
                 </div>
                 <div className="bg-primaryGreen rounded-lg overflow-hidden w-full flex justify-start items-center">
