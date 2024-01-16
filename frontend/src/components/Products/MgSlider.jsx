@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { css } from "styled-components/macro";
-import { IoArrowBack, IoArrowForward } from "react-icons/io5";
-import { ArrowBack, ArrowRight } from "@material-ui/icons";
+import { IoArrowForward } from "react-icons/io5";
+import { ArrowBack } from "@material-ui/icons";
 
 const MgSlider = ({ slides, children, width, height, borderRadius }) => {
   const timeout = useRef(null);

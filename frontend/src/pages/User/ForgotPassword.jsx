@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MdMailOutline, MdFace } from "react-icons/md";
+import { MdMailOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/user/Button";
 import InputField from "../../components/user/InputField";
@@ -11,8 +11,6 @@ import { clearErrors, forgotPassword } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 
 const ForgotPassword = () => {
-  // for navigation
-  const navigate = useNavigate();
   const alert = useAlert();
 
   const dispatch = useDispatch();
