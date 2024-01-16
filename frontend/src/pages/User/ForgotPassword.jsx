@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { MdMailOutline } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
 import Button from "../../components/user/Button";
 import InputField from "../../components/user/InputField";
 import Loader from "../../components/layout/Loader/Loader";
