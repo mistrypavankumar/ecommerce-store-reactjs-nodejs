@@ -24,7 +24,7 @@ const UpdateProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState("/profile.png");
 
   const updateProfileSubmit = (e) => {
@@ -34,7 +34,11 @@ const UpdateProfile = () => {
 
     myForm.set("name", name);
     myForm.set("email", email);
-    myForm.set("avatar", avatar);
+
+    if (avatar) {
+      myForm.set("avatar", avatar);
+    }
+
     dispatch(updateProfile(myForm));
   };
 
@@ -50,12 +54,17 @@ const UpdateProfile = () => {
     reader.readAsDataURL(e.target.files[0]);
   };
 
+  // Determine the avatar URL or use a default image
+  const defaultAvatarUrl = "/profile.png";
+
   useEffect(() => {
     // if user exists then set old name, email and avatar
     if (user) {
       setName(user.name);
       setEmail(user.email);
-      setAvatarPreview(user.avatar.url);
+      setAvatarPreview(
+        user.avatar && user.avatar.url ? user.avatar.url : defaultAvatarUrl
+      );
     }
 
     if (error) {

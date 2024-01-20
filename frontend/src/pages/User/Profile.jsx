@@ -14,6 +14,10 @@ const Profile = () => {
     }
   }, [isAuthenticated, navigate]);
 
+  // Determine the avatar URL or use a default image
+  const avatarUrl =
+    user.avatar && user.avatar.url ? user.avatar.url : "/profile.png";
+
   return (
     <>
       {loading ? (
@@ -28,7 +32,7 @@ const Profile = () => {
               </h1>
               <img
                 className="w-60 h-60 rounded-full shadow-xl border-4 border-primaryDarkGreen transition-transform duration-500 hover:scale-105"
-                src={user.avatar.url ? user.avatar.url : "/profile.png"}
+                src={avatarUrl}
                 alt={user.name}
               />
               <Link

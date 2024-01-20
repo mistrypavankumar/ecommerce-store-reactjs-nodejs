@@ -16,7 +16,7 @@ const OrderSuccess = () => {
         </p>
 
         <Link
-          className="bg-secondaryColor text-primaryDarkGreen px-10 py-2 hover:scale-105 transition-all duration-500 rounded-md"
+          className="bg-yellow-400 text-primaryDarkGreen px-10 py-2 hover:scale-105 transition-all duration-500 rounded-md"
           to="/orders/me"
         >
           View Orders

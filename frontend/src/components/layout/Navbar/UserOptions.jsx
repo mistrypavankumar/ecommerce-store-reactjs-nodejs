@@ -77,6 +77,10 @@ const UserOptions = ({ user }) => {
     });
   }
 
+  // Determine the avatar URL or use a default image
+  const avatarUrl =
+    user.avatar && user.avatar.url ? user.avatar.url : "/profile.png";
+
   return (
     <>
       <Backdrop open={open} style={{ zIndex: "10" }} />
@@ -90,7 +94,7 @@ const UserOptions = ({ user }) => {
         icon={
           <img
             className="w-full object-cover rounded-full"
-            src={user.avatar.url ? user.avatar.url : "/profile.png"}
+            src={avatarUrl}
             alt="Profile"
           />
         }
