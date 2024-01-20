@@ -48,16 +48,15 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Product not found", 404));
   }
 
-  // Images Start Here
   let images = [];
 
   if (typeof req.body.images === "string") {
     images.push(req.body.images);
-  } else {
+  } else if (req.body.images) {
     images = req.body.images;
   }
 
-  if (images !== undefined) {
+  if (images.length > 0) {
     // Deleting Images From Cloudinary
     for (let i = 0; i < product.images.length; i++) {
       await cloudinary.v2.uploader.destroy(product.images[i].public_id);
