@@ -8,23 +8,33 @@ const cloudinary = require("cloudinary");
 
 // Registeration for user
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-  // cloudinary
-  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    folder: "avatars",
-    width: 150,
-    crop: "scale",
-  });
+  let myCloud;
+  if (req.body.avatar) {
+    // cloudinary
+    myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "avatars",
+      width: 150,
+      crop: "scale",
+    });
+  }
 
   const { name, email, password } = req.body;
+
+  const defaultAvatar = {
+    public_id: "avatars/nsk0xlu4nooeqxmn9vd0",
+    url: "https://res.cloudinary.com/mernstack7143/image/upload/v1705785412/avatars/nsk0xlu4nooeqxmn9vd0.jpg",
+  };
 
   const user = await User.create({
     name,
     email,
     password,
-    avatar: {
-      public_id: myCloud.public_id,
-      url: myCloud.secure_url,
-    },
+    avatar: myCloud
+      ? {
+          public_id: myCloud.public_id,
+          url: myCloud.secure_url,
+        }
+      : defaultAvatar,
   });
 
   sendToken(user, 201, res, "User registered successfully");
@@ -61,8 +71,8 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 
 // logout user
 exports.logout = catchAsyncErrors(async (req, res, next) => {
-  res.cookie("token", null, {
-    expires: new Date(Date.now()),
+  res.cookie("token", "", {
+    expires: new Date(Date.now() - 5 * 60 * 1000), // Set to a time in the past
     httpOnly: true,
   });
 
@@ -197,10 +207,17 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
   if (req.body.avatar !== "") {
     const user = await User.findById(req.user.id);
 
-    const imageId = user.avatar.public_id;
+    // Check if the current avatar is not the default one
+    const isDefaultAvatar =
+      user.avatar.public_id === "avatars/nsk0xlu4nooeqxmn9vd0";
 
-    await cloudinary.v2.uploader.destroy(imageId);
+    if (!isDefaultAvatar) {
+      // Delete the current avatar from cloudinary
+      const imageId = user.avatar.public_id;
+      await cloudinary.v2.uploader.destroy(imageId);
+    }
 
+    // Upload the new avatar
     const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
       folder: "avatars",
       width: 150,
@@ -213,7 +230,8 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     };
   }
 
-  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+  // Update user data
+  await User.findByIdAndUpdate(req.user.id, newUserData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
