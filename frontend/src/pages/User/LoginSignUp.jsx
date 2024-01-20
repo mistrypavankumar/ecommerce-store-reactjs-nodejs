@@ -28,7 +28,7 @@ const LoginSignUp = () => {
   const [loginPassword, setLoginPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
 
-  const [avatar, setAvatar] = useState("/profile.png");
+  const [avatar, setAvatar] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState("/profile.png");
 
   const [registerName, setRegisterName] = useState("");
@@ -36,6 +36,8 @@ const LoginSignUp = () => {
   const [registerEmail, setRegisterEmail] = useState("");
 
   const redirect = location.search ? location.search.split("=")[1] : "/account";
+
+  console.log(redirect);
 
   useEffect(() => {
     if (error) {
@@ -80,17 +82,20 @@ const LoginSignUp = () => {
     myForm.set("name", registerName);
     myForm.set("email", registerEmail);
     myForm.set("password", registerPassword);
-    myForm.set("avatar", avatar);
+
+    if (avatar) {
+      myForm.set("avatar", avatar);
+    }
 
     if (registerPassword !== cpassword) {
-      alert.error("password doesn't match");
+      alert.error("Password doesn't match");
     } else {
       dispatch(register(myForm));
     }
   };
 
   const registerDataChange = (e) => {
-    if (e.target.name === "avatar") {
+    if (e.target.name === "avatar" && e.target.files[0]) {
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -230,7 +235,6 @@ const LoginSignUp = () => {
                       name="avatar"
                       accept="image/*"
                       onChange={registerDataChange}
-                      required
                     />
                   </div>
                 </div>
