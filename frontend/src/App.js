@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Navbar from "./components/layout/Navbar/Navbar";
 import WebFont from "webfontloader";
 import Footer from "./components/layout/Footer/Footer";
 import footerData from "./data/footerData.json";
 import "./App.css";
 
-import store from "./store";
 import { loadUser } from "./actions/userAction";
 import ElementWithRoutes from "./routes/ElementWithRoutes";
 import axios from "axios";
@@ -30,12 +30,16 @@ const menuOptions = [
 ];
 
 function App() {
-  const [stripeApikey, setStripeApiKey] = useState("");
+  const [stripeApiKey, setStripeApiKey] = useState("");
+  const dispatch = useDispatch();
 
   const getStripeApiKey = async () => {
-    const { data } = await axios.get("/api/v1/stripeapikey");
-
-    setStripeApiKey(data.stripeApiKey);
+    try {
+      const { data } = await axios.get("/api/v1/stripeapikey");
+      setStripeApiKey(data.stripeApiKey);
+    } catch (error) {
+      console.error("Error fetching Stripe API Key:", error);
+    }
   };
 
   useEffect(() => {
@@ -45,24 +49,14 @@ function App() {
       },
     });
 
-    // loading user data
-    store.dispatch(loadUser());
-
+    dispatch(loadUser());
     getStripeApiKey();
-  }, []);
-
-  // make user not to inspect the page
-  // window.addEventListener("contextmenu", (e) => e.preventDefault());
+  }, [dispatch]);
 
   return (
     <>
-      {/* Navbar component */}
       <Navbar webName="E-Commerce" menuOptions={menuOptions} />
-
-      {/* All routes */}
-      <ElementWithRoutes stripeApiKey={stripeApikey} />
-
-      {/* Footer component */}
+      <ElementWithRoutes stripeApiKey={stripeApiKey} />
       <Footer jsonData={footerData} />
     </>
   );
