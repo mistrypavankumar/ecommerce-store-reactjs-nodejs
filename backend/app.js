@@ -5,6 +5,7 @@ const cookiesParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const path = require("path");
+const cors = require("cors");
 
 // config
 if (process.env.NODE_ENV !== "PRODUCTION") {
@@ -15,6 +16,11 @@ app.use(express.json());
 app.use(cookiesParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL, // Replace with your frontend app's URL
+  })
+);
 
 // all routes imports
 const product = require("./routes/productRoute");
