@@ -21,8 +21,8 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const { name, email, password } = req.body;
 
   const defaultAvatar = {
-    public_id: "avatars/nsk0xlu4nooeqxmn9vd0",
-    url: "https://res.cloudinary.com/mernstack7143/image/upload/v1705785412/avatars/nsk0xlu4nooeqxmn9vd0.jpg",
+    public_id: "avatars/vector-sign-of-user-icon_nq0xhu",
+    url: "https://res.cloudinary.com/mernstack7143/image/upload/v1705910012/avatars/vector-sign-of-user-icon_nq0xhu.jpg",
   };
 
   const user = await User.create({
@@ -209,7 +209,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
     // Check if the current avatar is not the default one
     const isDefaultAvatar =
-      user.avatar.public_id === "avatars/nsk0xlu4nooeqxmn9vd0";
+      user.avatar.public_id === "avatars/vector-sign-of-user-icon_nq0xhu";
 
     if (!isDefaultAvatar) {
       // Delete the current avatar from cloudinary
