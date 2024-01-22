@@ -31,10 +31,7 @@ const HomePage = () => {
       ) : (
         <Fragment>
           <MetaData title="E-Commerce" />
-          {/* banner */}
           <Banner jsonData={companydata} />
-          {/* our products */}
-
           <OurProduct products={products} />
         </Fragment>
       )}

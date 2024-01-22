@@ -33,11 +33,8 @@ import ProcessOrder from "../pages/admin/ProcessOrder";
 import UserList from "../pages/admin/UserList";
 import UpdateUser from "../pages/admin/UpdateUser";
 import ProductReviews from "../pages/admin/ProductReviews";
-// import { useSelector } from "react-redux";
 
 const ElementWithRoutes = ({ stripeApiKey }) => {
-  // const { isAuthenticated } = useSelector((state) => state.user);
-
   return (
     <>
       <Routes>

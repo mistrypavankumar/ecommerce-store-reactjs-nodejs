@@ -17,7 +17,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const { products } = useSelector((state) => state.products);
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   const { orders } = useSelector((state) => state.allOrders);
   const { users } = useSelector((state) => state.allUsers);
 
@@ -31,9 +31,11 @@ const Dashboard = () => {
     });
 
   useEffect(() => {
-    dispatch(getAdminProducts());
-    dispatch(getAllOrders());
-    dispatch(getAllUsers());
+    if (user.role === "admin") {
+      dispatch(getAdminProducts());
+      dispatch(getAllOrders());
+      dispatch(getAllUsers());
+    }
   }, [dispatch]);
 
   let totalAmount = 0;
@@ -68,7 +70,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated === false) {
+    if (!user) {
       navigate("/", { replace: true });
     }
   }, [isAuthenticated, navigate]);
