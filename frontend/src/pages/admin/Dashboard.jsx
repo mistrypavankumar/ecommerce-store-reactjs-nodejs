@@ -31,12 +31,16 @@ const Dashboard = () => {
     });
 
   useEffect(() => {
-    if (user.role === "admin") {
+    if (!isAuthenticated) {
+      navigate("/login", { replace: true });
+    } else if (user && user.role !== "admin") {
+      navigate("/", { replace: true });
+    } else {
       dispatch(getAdminProducts());
       dispatch(getAllOrders());
       dispatch(getAllUsers());
     }
-  }, [dispatch]);
+  }, [dispatch, isAuthenticated, navigate, user]);
 
   let totalAmount = 0;
   orders &&
@@ -68,12 +72,6 @@ const Dashboard = () => {
       },
     ],
   };
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/", { replace: true });
-    }
-  }, [isAuthenticated, navigate]);
 
   return (
     <div className="dashboardStyle">

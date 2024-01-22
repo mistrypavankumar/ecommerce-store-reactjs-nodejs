@@ -56,6 +56,7 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
+    localStorage.setItem("isLoggedIn", true);
     dispatch({ type: LOGIN_SUCCESS, payload: data.user });
   } catch (error) {
     const errorMsg =
