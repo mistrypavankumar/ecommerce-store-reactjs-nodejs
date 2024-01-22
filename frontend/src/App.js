@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/layout/Navbar/Navbar";
 import WebFont from "webfontloader";
 import Footer from "./components/layout/Footer/Footer";
@@ -33,9 +33,13 @@ function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
   const dispatch = useDispatch();
 
+  const { user, isAuthenticated, loading } = useSelector((state) => state.user);
+
   const getStripeApiKey = async () => {
     try {
-      const { data } = await axios.get("/api/v1/stripeapikey");
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/v1/stripeapikey`
+      );
       setStripeApiKey(data.stripeApiKey);
     } catch (error) {
       console.error("Error fetching Stripe API Key:", error);
@@ -49,8 +53,10 @@ function App() {
       },
     });
 
-    dispatch(loadUser());
-    getStripeApiKey();
+    if (isAuthenticated) {
+      dispatch(loadUser());
+      getStripeApiKey();
+    }
   }, [dispatch]);
 
   return (

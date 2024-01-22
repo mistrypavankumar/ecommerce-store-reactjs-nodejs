@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
 import { useNavigate } from "react-router-dom";
 import { Dashboard, Person, ExitToApp, ListAlt } from "@material-ui/icons";
-import store from "./../../../store";
+import { store } from "./../../../store";
 import { useAlert } from "react-alert";
 import { logout } from "../../../actions/userAction";
 import { Backdrop } from "@material-ui/core";

@@ -1,6 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
+
+// Importing reducers
 import {
   newProductReducer,
   newReviewReducer,
@@ -10,6 +12,7 @@ import {
   productsReducer,
   reviewReducer,
 } from "./reducers/productReducer";
+
 import {
   profileReducer,
   userReducer,
@@ -17,7 +20,9 @@ import {
   allUsersReducer,
   userDetailsReducer,
 } from "./reducers/userReducer";
+
 import { cartReducer } from "./reducers/cartReducer";
+
 import {
   allOrdersReducer,
   myOrdersReducer,
@@ -26,8 +31,11 @@ import {
   orderReducer,
 } from "./reducers/orderReducer";
 
-// for multiple reducer
-const reducer = combineReducers({
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+
+// Combining all reducers
+const rootReducer = combineReducers({
   products: productsReducer,
   productDetails: productDetailsReducer,
   user: userReducer,
@@ -48,8 +56,16 @@ const reducer = combineReducers({
   review: reviewReducer,
 });
 
-// initialstate
-let initialState = {
+const persistConfig = {
+  key: "root",
+  storage,
+  whitelist: ["user", "cart"], // Add reducers that you want to persist here
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// Initial state
+const initialState = {
   cart: {
     cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
@@ -60,14 +76,14 @@ let initialState = {
   },
 };
 
-// middle ware
 const middleware = [thunk];
 
-// Create a store
 const store = createStore(
-  reducer,
+  persistedReducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };
