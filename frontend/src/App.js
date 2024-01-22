@@ -56,6 +56,7 @@ function App() {
     if (isAuthenticated) {
       dispatch(loadUser());
       getStripeApiKey();
+    } else {
     }
   }, [dispatch]);
 

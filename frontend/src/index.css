@@ -100,7 +100,7 @@
   }
 
   .dashboardStyle {
-    @apply h-auto md:h-screen absolute bottom-0 w-full z-10 bg-gray-50  tall:grid grid-cols-5;
+    @apply h-auto w-full z-10 bg-gray-50  tall:grid grid-cols-5;
   }
 
   .sidebarStyle {
