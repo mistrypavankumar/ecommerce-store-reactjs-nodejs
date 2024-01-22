@@ -19,6 +19,7 @@ app.use(fileUpload());
 app.use(
   cors({
     origin: process.env.FRONTEND_URL, // Replace with your frontend app's URL
+    credentials: true,
   })
 );
 
