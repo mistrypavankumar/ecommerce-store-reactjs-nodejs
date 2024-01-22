@@ -21,8 +21,8 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
   const { name, email, password } = req.body;
 
   const defaultAvatar = {
-    public_id: "avatars/vector-sign-of-user-icon_x3eghu",
-    url: "https://res.cloudinary.com/mernstack7143/image/upload/v1705784786/avatars/vector-sign-of-user-icon_x3eghu.jpg",
+    public_id: "avatars/nsk0xlu4nooeqxmn9vd0",
+    url: "https://res.cloudinary.com/mernstack7143/image/upload/v1705785412/avatars/nsk0xlu4nooeqxmn9vd0.jpg",
   };
 
   const user = await User.create({
